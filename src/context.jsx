@@ -35,10 +35,25 @@ export const AppProvider = ({ children }) => {
     });
     console.log('Item Gg' + id);
   };
+
+  const increase = (id) => {
+    dispatch({
+      type: INCREASE,
+      id,
+    });
+  };
+  const decrease = (id) => {
+    dispatch({
+      type: DECRREASE,
+      id,
+    });
+  };
   //
   //
   return (
-    <AppContext.Provider value={{ ...state, clearCart, removeItem }}>
+    <AppContext.Provider
+      value={{ ...state, clearCart, removeItem, increase, decrease }}
+    >
       {children}
     </AppContext.Provider>
   );
