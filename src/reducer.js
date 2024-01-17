@@ -42,8 +42,8 @@ export const reducer = (state, action) => {
     const id = action.id;
     const item = newCart.get(id);
     if (item.amount === 1) {
-      const newCart = new Map(state.cart);
-      newCart.delete(action.id);
+      // const newCart = new Map(state.cart);
+      newCart.delete(id);
       return {
         ...state,
         cart: newCart,
@@ -61,5 +61,17 @@ export const reducer = (state, action) => {
     };
   }
 
+  if (action.type === LOADING) {
+    return { ...state, loading: true };
+  }
+
+  if (action.type === DISPLAY_ITEMS) {
+    const cartItems = action.cart;
+    return {
+      cart: new Map(cartItems.map((item) => [item.id, item])),
+
+      loading: false,
+    };
+  }
   throw new Error('No matching action type ' + action.type);
 };

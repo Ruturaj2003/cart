@@ -11,11 +11,12 @@ import {
 import cartItems from './data';
 import { getTotals } from './utils';
 
+const url = 'https://www.course-api.com/react-useReducer-cart-project';
 const AppContext = createContext();
 
 const initialState = {
-  loading: false,
-  cart: new Map(cartItems.map((item) => [item.id, item])),
+  loading: true,
+  cart: new Map(),
 };
 
 export const AppProvider = ({ children }) => {
@@ -49,6 +50,23 @@ export const AppProvider = ({ children }) => {
       id,
     });
   };
+  const fetchData = async () => {
+    dispatch({
+      type: LOADING,
+    });
+
+    const resp = await fetch(url);
+    const cart = await resp.json();
+    dispatch({
+      type: DISPLAY_ITEMS,
+      cart,
+    });
+    console.log(cart);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   //
   //
   return (
