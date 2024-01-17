@@ -19,14 +19,26 @@ const initialState = {
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const greeting = 'DOTA';
+
   const clearCart = () => {
     dispatch({
       type: CLEAR_CART,
     });
   };
+
+  const removeItem = (id) => {
+    dispatch({
+      type: REMOVE,
+      id,
+    });
+    console.log('Item Gg' + id);
+  };
+  //
+  //
   return (
-    <AppContext.Provider value={{ ...state, clearCart }}>
+    <AppContext.Provider value={{ ...state, clearCart, removeItem }}>
       {children}
     </AppContext.Provider>
   );
